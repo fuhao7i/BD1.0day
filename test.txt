@@ -1,0 +1,11 @@
+#!/bin/bash
+Git init
+Git config --global user.name "fuhao7i"
+Git config --global user.email "54173723@qq.com"
+Git remote add origin https://github.com/fuhao7i/BD1day.git
+
+
+
+Git add .
+Git commit -m "init"
+Git push origin master
