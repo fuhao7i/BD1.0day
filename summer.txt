@@ -1,0 +1,16 @@
+Git 第一次用：git config 去配置用户名和email
+第一次建立项目：1。在网页上，用+建立项目。https·ssh uri
+Mkdir  git. Init. Git remote add origin uri
+对于代码想保存
+Git add 
+Git commit -m
+Git push origin master
+
+
+
+
+Git clone $(uri)用https来克隆
+Ssh的话只能克隆自己的项目
+
+
+Pull  将git上更新的内容下载下来
