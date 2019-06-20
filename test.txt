@@ -1,2 +1,8 @@
 先git pull origin master
 消除仓库和本地的差异，然后再push
+
+
+
+git push -f origin master
+是强推
+会覆盖掉以前仓库里的东西
