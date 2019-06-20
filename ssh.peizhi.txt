@@ -1,0 +1,9 @@
+
+ssh-keygen -t rsa
+/root/.ssh下找到id_rsa.pub
+将内容复制
+GitHub->settings->ssh and gig keys->newsshkey
+
+
+
+git remote add origin 
