@@ -1,11 +1,8 @@
-#!/bin/bash
-Git init
-Git config --global user.name "fuhao7i"
-Git config --global user.email "54173723@qq.com"
-Git remote add origin https://github.com/fuhao7i/BD1day.git
+先git pull origin master
+消除仓库和本地的差异，然后再push
 
 
 
-Git add .
-Git commit -m "init"
-Git push origin master
+git push -f origin master
+是强推
+会覆盖掉以前仓库里的东西
