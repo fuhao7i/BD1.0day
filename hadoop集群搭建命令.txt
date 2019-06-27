@@ -1,0 +1,151 @@
+说明：
+master 和slave机器都要
+1、创建hadoop用户。
+2、安装ssh.
+3、安装java、配置环境变量。
+4、修改hostname和hosts。
+5、安装hadoop（只需要在master（905-65）机器上安装）
+
+
+
+详细步骤：
+1、创建hadoop用户。
+sudo useradd -m hadoop –s /bin/bash
+sudo passwd hadoop
+sudo adduser hadoop sudo
+
+2、安装ssh。(以hadoop用户登录)
+sudo apt-get install openssh-server
+ssh localhost
+exit # 退出刚才的 ssh localhost
+cd ~/.ssh/ # 若没有该目录，请先执行一次ssh localhost
+ssh-keygen -t rsa # 会有提示，都按回车就可以
+cat ./id_rsa.pub >> ./authorized_keys # 加入授权
+
+
+3、安装java、配置环境变量。
+tar -zxf /opt/jdk-8u211-linux-x64.tar.gz -C /usr/local
+mv jdk1.8.0_211/ jdk1.8
+cd /usr/local
+vim ~/.bashrc
+设置环境变量   export JAVA_HOME=/usr/local/jdk1.8
+               export JRE_HOME=$JAVA_HOME/jre
+               export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+               export CLASSPATH=$JAVA_HOME/lib:$JRE_HOME/lib:.
+source ~/.bashrc    
+echo $JAVA_HOME
+java -version     
+$JAVA_HOME/bin/java -version
+
+4、修改hostname和hosts。
+ifconfig
+sudo vim /etc/hostname
+  905-65
+sudo vim /etc/hosts
+  127.0.0.1 localhost
+  222.27.165.130 905-65
+  222.27.165.101 905-36
+二台主机电脑分别运行如下命令，测试能否连接到本地localhost
+ssh localhost
+登录成功会显示如下结果：Last login: Mon Feb 29 18:29:55 2016 from ::1
+
+如果不能登录本地，请运行如下命令，安装openssh-server,并生成ssh公钥。
+sudo apt-get openssh-server
+ssh-keygen -t rsa -P ""
+cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys
+在保证了三台主机电脑都能连接到本地localhost后，还需要让905-65主机免密码登录905-36
+在905-65执行如下命令，将905-65的id_rsa.pub传送给905-36主机。  
+scp ~/.ssh/id_rsa.pub hadoop@905-36:/home/hadoop/
+ls ~
+可以看到905-36主机接收到id_rsa.pub文件
+接着在905-36主机上将905-65的公钥加入,在905-36执行如下命令:
+cat ~/id_rsa.pub >> ~/.ssh/authorized_keys
+rm ~/id_rsa.pub
+
+如果master（905-65）主机和slave01（905-36）主机的用户名一样，那么在master主机上直接执行如下测试命令，即可让master主机免密码登录slave01主机。
+ssh 905-36
+
+-----如果master主机和slave01主机的用户名不一样，还需要在master修改~/.ssh/config文件，如果没有此文件，自己创建文件。
+-----文件内容：
+     Host 905-65
+     user root
+     Host 905-36
+     user hadoop
+
+5、安装hadoop（只需要在master（905-65）机器上安装）
+sudo tar -zxf /opt/hadoop-2.7.3.tar.gz -C /usr/local    # 解压到/usr/local中
+cd /usr/local/
+sudo mv ./hadoop-2.7.3/ ./hadoop            # 将文件夹名改为hadoop
+sudo chown -R hadoop ./hadoop 
+编辑~/.bashrc文件
+vim ~/.bashrc
+   export HADOOP_HOME=/usr/local/hadoop
+   export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+source ~/.bashrc
+
+修改master（905-65）主机修改Hadoop如下配置文件，这些配置文件都位于/usr/local/hadoop/etc/hadoop目录下。
+1）修改slaves：
+这里把DataNode的主机名写入该文件，每行一个。这里让master节点主机仅作为NameNode使用。
+
+
+2）core-site.xml
+  <configuration>
+      <property>
+          <name>hadoop.tmp.dir</name>
+          <value>file:/usr/local/hadoop/tmp</value>
+          <description>Abase for other temporary directories.</description>
+      </property>
+      <property>
+          <name>fs.defaultFS</name>
+          <value>hdfs://905-65:9000</value>
+      </property>
+  </configuration>
+
+3）hdfs-site.xml
+  <configuration>
+    <property>
+        <name>dfs.replication</name>
+        <value>3</value>
+    </property>
+   </configuration>
+
+4）修改mapred-site.xml(复制mapred-site.xml.template,再修改文件名)
+  <configuration>
+    <property>
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+    </property>
+  </configuration>
+
+5）yarn-site.xml
+ <configuration>
+  <!-- Site specific YARN configuration properties -->
+      <property>
+          <name>yarn.nodemanager.aux-services</name>
+          <value>mapreduce_shuffle</value>
+      </property>
+      <property>
+          <name>yarn.resourcemanager.hostname</name>
+          <value>905-65</value>
+      </property>
+  </configuration>
+配置好后，将 master（905-65） 上的 /usr/local/Hadoop 文件夹复制到各个节点上。
+tar -zcf ~/hadoop.905-65.tar.gz ./hadoop
+cd ~
+scp ./hadoop.905-65.tar.gz 905-36:/home/hadoop
+
+在slave01（905-36）节点上执行
+sudo rm -rf /usr/local/hadoop/
+sudo tar -zxf ~/hadoop.905-65.tar.gz -C /usr/local
+sudo chown -R hadoop /usr/local/hadoop
+启动hadoop集群：
+cd /usr/local/hadoop
+bin/hdfs namenode -format
+sbin/start-all.sh
+运行后，在master（905-65），slave01（905-36）运行jps命令
+
+
+
+
+
+
