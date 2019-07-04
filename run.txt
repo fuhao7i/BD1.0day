@@ -1,0 +1,17 @@
+docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql
+
+
+docker exec -it mysql bash
+
+
+mysql -u root -p
+
+
+
+
+
+alter table count change name name char(40) character set utf8;
+
+
+
+alter table count character set utf8;
