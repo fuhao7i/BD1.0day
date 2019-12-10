@@ -1,34 +1,34 @@
-ËµÃ÷£º
-master ºÍslave»úÆ÷¶¼Òª
-1¡¢´´½¨hadoopÓÃ»§¡£
-2¡¢°²×°ssh.
-3¡¢°²×°java¡¢ÅäÖÃ»·¾³±äÁ¿¡£
-4¡¢ĞŞ¸ÄhostnameºÍhosts¡£
-5¡¢°²×°hadoop£¨Ö»ĞèÒªÔÚmaster£¨905-65£©»úÆ÷ÉÏ°²×°£©
+è¯´æ˜ï¼š
+master å’Œslaveæœºå™¨éƒ½è¦
+1ã€åˆ›å»ºhadoopç”¨æˆ·ã€‚
+2ã€å®‰è£…ssh.
+3ã€å®‰è£…javaã€é…ç½®ç¯å¢ƒå˜é‡ã€‚
+4ã€ä¿®æ”¹hostnameå’Œhostsã€‚
+5ã€å®‰è£…hadoopï¼ˆåªéœ€è¦åœ¨masterï¼ˆ905-65ï¼‰æœºå™¨ä¸Šå®‰è£…ï¼‰
 
 
 
-ÏêÏ¸²½Öè£º
-1¡¢´´½¨hadoopÓÃ»§¡£
-sudo useradd -m hadoop ¨Cs /bin/bash
+è¯¦ç»†æ­¥éª¤ï¼š
+1ã€åˆ›å»ºhadoopç”¨æˆ·ã€‚
+sudo useradd -m hadoop â€“s /bin/bash
 sudo passwd hadoop
 sudo adduser hadoop sudo
 
-2¡¢°²×°ssh¡£(ÒÔhadoopÓÃ»§µÇÂ¼)
+2ã€å®‰è£…sshã€‚(ä»¥hadoopç”¨æˆ·ç™»å½•)
 sudo apt-get install openssh-server
 ssh localhost
-exit # ÍË³ö¸Õ²ÅµÄ ssh localhost
-cd ~/.ssh/ # ÈôÃ»ÓĞ¸ÃÄ¿Â¼£¬ÇëÏÈÖ´ĞĞÒ»´Îssh localhost
-ssh-keygen -t rsa # »áÓĞÌáÊ¾£¬¶¼°´»Ø³µ¾Í¿ÉÒÔ
-cat ./id_rsa.pub >> ./authorized_keys # ¼ÓÈëÊÚÈ¨
+exit # é€€å‡ºåˆšæ‰çš„ ssh localhost
+cd ~/.ssh/ # è‹¥æ²¡æœ‰è¯¥ç›®å½•ï¼Œè¯·å…ˆæ‰§è¡Œä¸€æ¬¡ssh localhost
+ssh-keygen -t rsa # ä¼šæœ‰æç¤ºï¼Œéƒ½æŒ‰å›è½¦å°±å¯ä»¥
+cat ./id_rsa.pub >> ./authorized_keys # åŠ å…¥æˆæƒ
 
 
-3¡¢°²×°java¡¢ÅäÖÃ»·¾³±äÁ¿¡£
+3ã€å®‰è£…javaã€é…ç½®ç¯å¢ƒå˜é‡ã€‚
 tar -zxf /opt/jdk-8u211-linux-x64.tar.gz -C /usr/local
 mv jdk1.8.0_211/ jdk1.8
 cd /usr/local
 vim ~/.bashrc
-ÉèÖÃ»·¾³±äÁ¿   export JAVA_HOME=/usr/local/jdk1.8
+è®¾ç½®ç¯å¢ƒå˜é‡   export JAVA_HOME=/usr/local/jdk1.8
                export JRE_HOME=$JAVA_HOME/jre
                export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
                export CLASSPATH=$JAVA_HOME/lib:$JRE_HOME/lib:.
@@ -37,7 +37,7 @@ echo $JAVA_HOME
 java -version     
 $JAVA_HOME/bin/java -version
 
-4¡¢ĞŞ¸ÄhostnameºÍhosts¡£
+4ã€ä¿®æ”¹hostnameå’Œhostsã€‚
 ifconfig
 sudo vim /etc/hostname
   905-65
@@ -45,50 +45,50 @@ sudo vim /etc/hosts
   127.0.0.1 localhost
   222.27.165.130 905-65
   222.27.165.101 905-36
-¶şÌ¨Ö÷»úµçÄÔ·Ö±ğÔËĞĞÈçÏÂÃüÁî£¬²âÊÔÄÜ·ñÁ¬½Óµ½±¾µØlocalhost
+äºŒå°ä¸»æœºç”µè„‘åˆ†åˆ«è¿è¡Œå¦‚ä¸‹å‘½ä»¤ï¼Œæµ‹è¯•èƒ½å¦è¿æ¥åˆ°æœ¬åœ°localhost
 ssh localhost
-µÇÂ¼³É¹¦»áÏÔÊ¾ÈçÏÂ½á¹û£ºLast login: Mon Feb 29 18:29:55 2016 from ::1
+ç™»å½•æˆåŠŸä¼šæ˜¾ç¤ºå¦‚ä¸‹ç»“æœï¼šLast login: Mon Feb 29 18:29:55 2016 from ::1
 
-Èç¹û²»ÄÜµÇÂ¼±¾µØ£¬ÇëÔËĞĞÈçÏÂÃüÁî£¬°²×°openssh-server,²¢Éú³Éssh¹«Ô¿¡£
+å¦‚æœä¸èƒ½ç™»å½•æœ¬åœ°ï¼Œè¯·è¿è¡Œå¦‚ä¸‹å‘½ä»¤ï¼Œå®‰è£…openssh-server,å¹¶ç”Ÿæˆsshå…¬é’¥ã€‚
 sudo apt-get openssh-server
 ssh-keygen -t rsa -P ""
 cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys
-ÔÚ±£Ö¤ÁËÈıÌ¨Ö÷»úµçÄÔ¶¼ÄÜÁ¬½Óµ½±¾µØlocalhostºó£¬»¹ĞèÒªÈÃ905-65Ö÷»úÃâÃÜÂëµÇÂ¼905-36
-ÔÚ905-65Ö´ĞĞÈçÏÂÃüÁî£¬½«905-65µÄid_rsa.pub´«ËÍ¸ø905-36Ö÷»ú¡£  
+åœ¨ä¿è¯äº†ä¸‰å°ä¸»æœºç”µè„‘éƒ½èƒ½è¿æ¥åˆ°æœ¬åœ°localhoståï¼Œè¿˜éœ€è¦è®©905-65ä¸»æœºå…å¯†ç ç™»å½•905-36
+åœ¨905-65æ‰§è¡Œå¦‚ä¸‹å‘½ä»¤ï¼Œå°†905-65çš„id_rsa.pubä¼ é€ç»™905-36ä¸»æœºã€‚  
 scp ~/.ssh/id_rsa.pub hadoop@905-36:/home/hadoop/
 ls ~
-¿ÉÒÔ¿´µ½905-36Ö÷»ú½ÓÊÕµ½id_rsa.pubÎÄ¼ş
-½Ó×ÅÔÚ905-36Ö÷»úÉÏ½«905-65µÄ¹«Ô¿¼ÓÈë,ÔÚ905-36Ö´ĞĞÈçÏÂÃüÁî:
+å¯ä»¥çœ‹åˆ°905-36ä¸»æœºæ¥æ”¶åˆ°id_rsa.pubæ–‡ä»¶
+æ¥ç€åœ¨905-36ä¸»æœºä¸Šå°†905-65çš„å…¬é’¥åŠ å…¥,åœ¨905-36æ‰§è¡Œå¦‚ä¸‹å‘½ä»¤:
 cat ~/id_rsa.pub >> ~/.ssh/authorized_keys
 rm ~/id_rsa.pub
 
-Èç¹ûmaster£¨905-65£©Ö÷»úºÍslave01£¨905-36£©Ö÷»úµÄÓÃ»§ÃûÒ»Ñù£¬ÄÇÃ´ÔÚmasterÖ÷»úÉÏÖ±½ÓÖ´ĞĞÈçÏÂ²âÊÔÃüÁî£¬¼´¿ÉÈÃmasterÖ÷»úÃâÃÜÂëµÇÂ¼slave01Ö÷»ú¡£
+å¦‚æœmasterï¼ˆ905-65ï¼‰ä¸»æœºå’Œslave01ï¼ˆ905-36ï¼‰ä¸»æœºçš„ç”¨æˆ·åä¸€æ ·ï¼Œé‚£ä¹ˆåœ¨masterä¸»æœºä¸Šç›´æ¥æ‰§è¡Œå¦‚ä¸‹æµ‹è¯•å‘½ä»¤ï¼Œå³å¯è®©masterä¸»æœºå…å¯†ç ç™»å½•slave01ä¸»æœºã€‚
 ssh 905-36
 
------Èç¹ûmasterÖ÷»úºÍslave01Ö÷»úµÄÓÃ»§Ãû²»Ò»Ñù£¬»¹ĞèÒªÔÚmasterĞŞ¸Ä~/.ssh/configÎÄ¼ş£¬Èç¹ûÃ»ÓĞ´ËÎÄ¼ş£¬×Ô¼º´´½¨ÎÄ¼ş¡£
------ÎÄ¼şÄÚÈİ£º
+-----å¦‚æœmasterä¸»æœºå’Œslave01ä¸»æœºçš„ç”¨æˆ·åä¸ä¸€æ ·ï¼Œè¿˜éœ€è¦åœ¨masterä¿®æ”¹~/.ssh/configæ–‡ä»¶ï¼Œå¦‚æœæ²¡æœ‰æ­¤æ–‡ä»¶ï¼Œè‡ªå·±åˆ›å»ºæ–‡ä»¶ã€‚
+-----æ–‡ä»¶å†…å®¹ï¼š
      Host 905-65
      user root
      Host 905-36
      user hadoop
 
-5¡¢°²×°hadoop£¨Ö»ĞèÒªÔÚmaster£¨905-65£©»úÆ÷ÉÏ°²×°£©
-sudo tar -zxf /opt/hadoop-2.7.3.tar.gz -C /usr/local    # ½âÑ¹µ½/usr/localÖĞ
+5ã€å®‰è£…hadoopï¼ˆåªéœ€è¦åœ¨masterï¼ˆ905-65ï¼‰æœºå™¨ä¸Šå®‰è£…ï¼‰
+sudo tar -zxf /opt/hadoop-2.7.3.tar.gz -C /usr/local    # è§£å‹åˆ°/usr/localä¸­
 cd /usr/local/
-sudo mv ./hadoop-2.7.3/ ./hadoop            # ½«ÎÄ¼ş¼ĞÃû¸ÄÎªhadoop
+sudo mv ./hadoop-2.7.3/ ./hadoop            # å°†æ–‡ä»¶å¤¹åæ”¹ä¸ºhadoop
 sudo chown -R hadoop ./hadoop 
-±à¼­~/.bashrcÎÄ¼ş
+ç¼–è¾‘~/.bashrcæ–‡ä»¶
 vim ~/.bashrc
    export HADOOP_HOME=/usr/local/hadoop
    export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 source ~/.bashrc
 
-ĞŞ¸Ämaster£¨905-65£©Ö÷»úĞŞ¸ÄHadoopÈçÏÂÅäÖÃÎÄ¼ş£¬ÕâĞ©ÅäÖÃÎÄ¼ş¶¼Î»ÓÚ/usr/local/hadoop/etc/hadoopÄ¿Â¼ÏÂ¡£
-1£©ĞŞ¸Äslaves£º
-ÕâÀï°ÑDataNodeµÄÖ÷»úÃûĞ´Èë¸ÃÎÄ¼ş£¬Ã¿ĞĞÒ»¸ö¡£ÕâÀïÈÃmaster½ÚµãÖ÷»ú½ö×÷ÎªNameNodeÊ¹ÓÃ¡£
+ä¿®æ”¹masterï¼ˆ905-65ï¼‰ä¸»æœºä¿®æ”¹Hadoopå¦‚ä¸‹é…ç½®æ–‡ä»¶ï¼Œè¿™äº›é…ç½®æ–‡ä»¶éƒ½ä½äº/usr/local/hadoop/etc/hadoopç›®å½•ä¸‹ã€‚
+1ï¼‰ä¿®æ”¹slavesï¼š
+è¿™é‡ŒæŠŠDataNodeçš„ä¸»æœºåå†™å…¥è¯¥æ–‡ä»¶ï¼Œæ¯è¡Œä¸€ä¸ªã€‚è¿™é‡Œè®©masterèŠ‚ç‚¹ä¸»æœºä»…ä½œä¸ºNameNodeä½¿ç”¨ã€‚
 
 
-2£©core-site.xml
+2ï¼‰core-site.xml
   <configuration>
       <property>
           <name>hadoop.tmp.dir</name>
@@ -100,8 +100,26 @@ source ~/.bashrc
           <value>hdfs://905-65:9000</value>
       </property>
   </configuration>
+  
+  
+  
+  
+  
+  true:
+  <configuration>
+      <property>
+          <name>hadoop.tmp.dir</name>
+          <value>/tmp/hadoop-${user.name}</value>
+      </property>
+      <property>
+          <name>fs.defaultFS</name>
+          <value>hdfs://905-65:9000</value>
+      </property>
+  </configuration>
+  
+  
 
-3£©hdfs-site.xml
+3ï¼‰hdfs-site.xml
   <configuration>
     <property>
         <name>dfs.replication</name>
@@ -109,7 +127,7 @@ source ~/.bashrc
     </property>
    </configuration>
 
-4£©ĞŞ¸Ämapred-site.xml(¸´ÖÆmapred-site.xml.template,ÔÙĞŞ¸ÄÎÄ¼şÃû)
+4ï¼‰ä¿®æ”¹mapred-site.xml(å¤åˆ¶mapred-site.xml.template,å†ä¿®æ”¹æ–‡ä»¶å)
   <configuration>
     <property>
         <name>mapreduce.framework.name</name>
@@ -117,7 +135,7 @@ source ~/.bashrc
     </property>
   </configuration>
 
-5£©yarn-site.xml
+5ï¼‰yarn-site.xml
  <configuration>
   <!-- Site specific YARN configuration properties -->
       <property>
@@ -129,23 +147,56 @@ source ~/.bashrc
           <value>905-65</value>
       </property>
   </configuration>
-ÅäÖÃºÃºó£¬½« master£¨905-65£© ÉÏµÄ /usr/local/Hadoop ÎÄ¼ş¼Ğ¸´ÖÆµ½¸÷¸ö½ÚµãÉÏ¡£
+é…ç½®å¥½åï¼Œå°† masterï¼ˆ905-65ï¼‰ ä¸Šçš„ /usr/local/Hadoop æ–‡ä»¶å¤¹å¤åˆ¶åˆ°å„ä¸ªèŠ‚ç‚¹ä¸Šã€‚
 tar -zcf ~/hadoop.905-65.tar.gz ./hadoop
 cd ~
 scp ./hadoop.905-65.tar.gz 905-36:/home/hadoop
 
-ÔÚslave01£¨905-36£©½ÚµãÉÏÖ´ĞĞ
+åœ¨slave01ï¼ˆ905-36ï¼‰èŠ‚ç‚¹ä¸Šæ‰§è¡Œ
 sudo rm -rf /usr/local/hadoop/
 sudo tar -zxf ~/hadoop.905-65.tar.gz -C /usr/local
 sudo chown -R hadoop /usr/local/hadoop
-Æô¶¯hadoop¼¯Èº£º
+å¯åŠ¨hadoopé›†ç¾¤ï¼š
 cd /usr/local/hadoop
 bin/hdfs namenode -format
 sbin/start-all.sh
-ÔËĞĞºó£¬ÔÚmaster£¨905-65£©£¬slave01£¨905-36£©ÔËĞĞjpsÃüÁî
+è¿è¡Œåï¼Œåœ¨masterï¼ˆ905-65ï¼‰ï¼Œslave01ï¼ˆ905-36ï¼‰è¿è¡Œjpså‘½ä»¤
 
 
 
+
+å¯åŠ¨sparkï¼š
+cd /usr/local/spark/
+sbin/start-master.sh
+
+dispalyï¼š
+15093 Jps
+14343 SecondaryNameNode
+14121 NameNode
+14891 Master
+14509 ResourceManager
+
+
+sbin/start-slaves.sh
+
+
+displayï¼š
+37553 DataNode
+37684 NodeManager
+37876 Worker
+37924 Jps
+
+åœ¨æµè§ˆå™¨ä¸ŠæŸ¥çœ‹Sparkç‹¬ç«‹é›†ç¾¤ç®¡ç†å™¨çš„é›†ç¾¤ä¿¡æ¯
+åœ¨masterä¸»æœºä¸Šæ‰“å¼€æµè§ˆå™¨ï¼Œè®¿é—®http://master:8080,å¦‚ä¸‹å›¾ï¼š
+
+
+å…³é—­sparké›†ç¾¤ï¼š
+sbin/stop-master.sh
+sbin/stop-slaves.sh
+
+
+cd /usr/local/hadoop/
+sbin/stop-all.sh
 
 
 
